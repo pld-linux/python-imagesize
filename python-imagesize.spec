@@ -1,20 +1,20 @@
 #
 # Conditional build:
-%bcond_with	tests	# test target [test images are missing]
+%bcond_without	tests	# unit tests
 %bcond_without	python2 # CPython 2.x module
 %bcond_without	python3 # CPython 3.x module
 
 Summary:	Python 2 module to get image size from PNG/JPEG/JPEG2000/GIF file
 Summary(pl.UTF-8):	Moduł Pythona 2 do pobierania rozmiaru obrazu z pliku PNG/JPEG/JPEG2000/GIF
 Name:		python-imagesize
-Version:	0.7.1
-Release:	3
+Version:	1.0.0
+Release:	1
 License:	MIT
 Group:		Libraries/Python
-#Source0Download: https://pypi.python.org/simple/imagesize/
-Source0:	https://pypi.python.org/packages/53/72/6c6f1e787d9cab2cc733cf042f125abec07209a58308831c9f292504e826/imagesize-%{version}.tar.gz
-# Source0-md5:	976148283286a6ba5f69b0f81aef8052
-URL:		https://pypi.python.org/pypi/imagesize
+#Source0Download: https://pypi.org/simple/imagesize/
+Source0:	https://files.pythonhosted.org/packages/source/i/imagesize/imagesize-%{version}.tar.gz
+# Source0-md5:	9aa76df782f1df5b917794638b6bb6c2
+URL:		https://pypi.org/project/imagesize/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
@@ -82,15 +82,16 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with python2}
 %files
 %defattr(644,root,root,755)
-%doc README.rst
-%{py_sitescriptdir}/imagesize
+%doc LICENSE.rst README.rst
+%{py_sitescriptdir}/imagesize.py[co]
 %{py_sitescriptdir}/imagesize-%{version}-py*.egg-info
 %endif
 
 %if %{with python3}
 %files -n python3-imagesize
 %defattr(644,root,root,755)
-%doc README.rst
-%{py3_sitescriptdir}/imagesize
+%doc LICENSE.rst README.rst
+%{py3_sitescriptdir}/imagesize.py
+%{py3_sitescriptdir}/__pycache__/imagesize.cpython-*.py[co]
 %{py3_sitescriptdir}/imagesize-%{version}-py*.egg-info
 %endif
