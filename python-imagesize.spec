@@ -7,25 +7,25 @@
 Summary:	Python 2 module to get image size from PNG/JPEG/JPEG2000/GIF file
 Summary(pl.UTF-8):	Moduł Pythona 2 do pobierania rozmiaru obrazu z pliku PNG/JPEG/JPEG2000/GIF
 Name:		python-imagesize
-Version:	1.1.0
-Release:	2
+Version:	1.2.0
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/imagesize/
 Source0:	https://files.pythonhosted.org/packages/source/i/imagesize/imagesize-%{version}.tar.gz
-# Source0-md5:	2f89749b05e07c79c46330dbc62f1e02
+# Source0-md5:	3a1e124594183778a8f87e4bcdb6dca9
 URL:		https://pypi.org/project/imagesize/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
 %if %{with python2}
-BuildRequires:	python-modules >= 1:2.6
+BuildRequires:	python-modules >= 1:2.7
 BuildRequires:	python-setuptools
 %endif
 %if %{with python3}
-BuildRequires:	python3-modules >= 1:3.3
+BuildRequires:	python3-modules >= 1:3.4
 BuildRequires:	python3-setuptools
 %endif
-Requires:	python-modules >= 1:2.6
+Requires:	python-modules >= 1:2.7
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -41,7 +41,7 @@ rozmiary obrazka.
 Summary:	Python 3 module to get image size from PNG/JPEG/JPEG2000/GIF file
 Summary(pl.UTF-8):	Moduł Pythona 3 do pobierania rozmiaru obrazu z pliku PNG/JPEG/JPEG2000/GIF
 Group:		Libraries/Python
-Requires:	python3-modules >= 1:3.3
+Requires:	python3-modules >= 1:3.4
 
 %description -n python3-imagesize
 This module analyzes JPEG/JPEG2000/PNG/GIF image header and returns
@@ -56,11 +56,19 @@ rozmiary obrazka.
 
 %build
 %if %{with python2}
-%py_build %{?with_tests:test}
+%py_build
+
+%if %{with tests}
+%{__python} -m unittest discover -s test
+%endif
 %endif
 
 %if %{with python3}
-%py3_build %{?with_tests:test}
+%py3_build
+
+%if %{with tests}
+%{__python3} -m unittest discover -s test
+%endif
 %endif
 
 %install
