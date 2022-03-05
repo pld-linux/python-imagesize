@@ -7,13 +7,14 @@
 Summary:	Python 2 module to get image size from PNG/JPEG/JPEG2000/GIF file
 Summary(pl.UTF-8):	Moduł Pythona 2 do pobierania rozmiaru obrazu z pliku PNG/JPEG/JPEG2000/GIF
 Name:		python-imagesize
-Version:	1.2.0
-Release:	2
+Version:	1.3.0
+Release:	1
 License:	MIT
 Group:		Libraries/Python
 #Source0Download: https://pypi.org/simple/imagesize/
 Source0:	https://files.pythonhosted.org/packages/source/i/imagesize/imagesize-%{version}.tar.gz
-# Source0-md5:	3a1e124594183778a8f87e4bcdb6dca9
+# Source0-md5:	27da6cc27370c69834723012f2eb203a
+Patch0:		%{name}-py2.patch
 URL:		https://pypi.org/project/imagesize/
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.714
@@ -53,6 +54,7 @@ rozmiary obrazka.
 
 %prep
 %setup -q -n imagesize-%{version}
+%patch0 -p1
 
 %build
 %if %{with python2}
